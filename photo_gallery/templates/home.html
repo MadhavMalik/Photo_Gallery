@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Fancy Photo Gallery</title>
+
+    <style>
+     /* styles.css */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.gallery {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.grid-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.grid-item img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.grid-item:hover img {
+  transform: scale(1.1);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.close {
+  color: #fff;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+    </style>
+    <script>
+// script.js
+// This script handles the JavaScript functionality
+
+// Get all the grid items
+const gridItems = document.querySelectorAll('.grid-item');
+
+// Get the modal and modal content elements
+const modal = document.getElementById('modal');
+const modalImage = document.getElementById('modal-image');
+
+// Add click event listeners to each grid item
+gridItems.forEach((item) => {
+  item.addEventListener('click', handleItemClick);
+});
+
+// Function to handle the click event on grid items
+function handleItemClick(event) {
+  const clickedItem = event.currentTarget;
+  const clickedImageSrc = clickedItem.querySelector('img').src;
+
+  // Set the clicked image source as the modal content
+  modalImage.src = clickedImageSrc;
+
+  // Display the modal
+  modal.style.display = 'block';
+}
+
+// Add a click event listener to the modal close button
+modal.querySelector('.close').addEventListener('click', () => {
+  // Hide the modal
+  modal.style.display = 'none';
+});
+
+// Add a click event listener to the modal itself to close it when clicked outside the image
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    // Hide the modal
+    modal.style.display = 'none';
+  }
+});
+    </script>
+</head>
+<body>
+  <div class="gallery">
+    <div class="grid">
+      <div class="grid-item">
+        <img src="IMG-20180821-WA0016.jpg" alt="Image 1">
+      </div>
+      <div class="grid-item">
+        <img src="IMG_20180905_004212_923.jpg" alt="Image 2">
+      </div>
+      <div class="grid-item">
+        <img src="FB_IMG_1536087965357.jpeg" alt="Image 3">
+      </div>
+      <!-- Add more grid items as needed -->
+
+  </div>
+        <div id="modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-image">
+  </div>
+
+
+</body>
+</html>
